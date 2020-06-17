@@ -14,9 +14,12 @@
         <nav>
             <div>
                 <ul>
+                    {% if user.is_authenticated %}
+                    <li><a href="">Logout</a></li>
+                    {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'signup' %}">Signup</a></li>
-                    <li><a href="">Logout</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

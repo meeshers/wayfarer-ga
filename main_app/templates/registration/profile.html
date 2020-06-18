@@ -5,11 +5,11 @@
 <p>your name: {{test.name}}</p>
 <p>your city: {{test.city}}</p>
 <p>your register date: {{test.register_date}}</p>
-<div class="ui inverted segment">
-    <form action="{% url 'edit' %}" method="GET">
-        <button class="ui inverted button">Edit info</button>
-    </form>
-</div>
+
+<form action="{% url 'edit' %}" method="GET">
+    <button class="ui inverted button">Edit info</button>
+</form>
+
 <p>blogs</p>
 {% for blog in blogs%}
 <div>

@@ -14,15 +14,16 @@
 <body>
     <header>
         <nav>
-            <div>
+            <div class="ui menu">
+                <h1>Wayfarer</h1>
                 <ul class="right menu">
-                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li class="item"><a href="{% url 'home' %}">Home</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
-                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li class="item"><a href="{% url 'logout' %}">Logout</a></li>
+                    <li class="item"><a href="{% url 'profile' %}">Profile</a></li>
                     {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'signup' %}">Signup</a></li>
+                    <li class="item"><a href="{% url 'login' %}">Login</a></li>
+                    <li class="item"><a href="{% url 'signup' %}">Signup</a></li>
                     {% endif %}
                 </ul>
             </div>

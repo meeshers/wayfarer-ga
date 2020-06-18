@@ -28,7 +28,19 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
+
+class User:
+  def __init__(self, name, city, register_date):
+    self.name = name
+    self.city = city
+    self.register_date = register_date
+
+user = [
+  User('Lolo', 'Tabby', '05-14-2020')
+]
+
 def profile(request):
-    return render(request, 'registration/profile.html')
+    context = {'user':user}
+    return render(request, 'registration/profile.html',context)
 # def login(request):
 #     return render(request, 'registration/login.html')

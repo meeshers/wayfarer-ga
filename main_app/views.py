@@ -6,13 +6,11 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-
 # Define the home view
 def home(request):
     return render(request, 'home.html')
 
-
-# Auth routes
+# --- Auth route --- #
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -27,7 +25,6 @@ def signup(request):
         form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
-
 
 class User:
   def __init__(self, name, city, register_date):
@@ -50,11 +47,16 @@ blogs = [
     Blog('night in SF', 'Leborn James', 'play basketball game3',3)
 ]
 
+# --- User routes --- #
+
 def profile(request):
     context = {'test':user, 'blogs': blogs}
     return render(request, 'registration/profile.html',context)
 
 def blog(request,blog_id):
-    # blog = blog_id
     context = {'blog':blog_id,'title':blogs[blog_id].title,'author':blogs[blog_id].author,'content':blogs[blog_id].content,}
     return render(request, 'blog/show.html', context)
+
+def profile_edit(request):
+    context = {'test': user}
+    return render(request, 'blog/edit.html', context)

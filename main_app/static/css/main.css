@@ -1,0 +1,10 @@
+body {
+  background-color: #05040A;
+  color: #FDFDFD;
+}
+
+.topic-container {
+  display: flex;
+  margin: 5px;
+  padding: 5px;
+}

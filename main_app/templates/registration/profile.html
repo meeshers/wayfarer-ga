@@ -2,7 +2,14 @@
 
 {% block content %}
 <h1>Profile Page</h1>
-<p>your name: {{user.name}}</p>
-<p>your city: {{user.city}}</p>
-<p>your register date: {{user.register_date}}</p>
+<p>your name: {{test.name}}</p>
+<p>your city: {{test.city}}</p>
+<p>your register date: {{test.register_date}}</p>
+<p>blogs</p>
+{% for blog in blogs%}
+<div>
+    <a href="{% url 'blog' blog.num %}">blog title: {{blog.title}}</a>
+    <p>blog content: {{blog.content}}</p>
+</div>
+{% endfor %}
 {% endblock %}

@@ -35,12 +35,26 @@ class User:
     self.city = city
     self.register_date = register_date
 
-user = [
-  User('Lolo', 'Tabby', '05-14-2020')
+user = User('Lolo', 'Tabby', '05-14-2020')
+
+class Blog:
+    def __init__(self,title,author,content, num):
+        self.title = title
+        self.author = author
+        self.content = content
+        self.num = num
+
+blogs = [
+    Blog('night in LA', 'Leborn James', 'play basketball game1',4),
+    Blog('night in Seattle', 'Leborn James', 'play basketball game2',2),
+    Blog('night in SF', 'Leborn James', 'play basketball game3',3)
 ]
 
 def profile(request):
-    context = {'user':user}
+    context = {'test':user, 'blogs': blogs}
     return render(request, 'registration/profile.html',context)
-# def login(request):
-#     return render(request, 'registration/login.html')
+
+def blog(request,blog_id):
+    # blog = blog_id
+    context = {'blogs':blogs}
+    return render(request, 'blog/show.html', context)

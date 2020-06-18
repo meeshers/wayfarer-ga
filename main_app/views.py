@@ -45,7 +45,7 @@ class Blog:
         self.num = num
 
 blogs = [
-    Blog('night in LA', 'Leborn James', 'play basketball game1',4),
+    Blog('night in LA', 'Leborn James', 'play basketball game1',1),
     Blog('night in Seattle', 'Leborn James', 'play basketball game2',2),
     Blog('night in SF', 'Leborn James', 'play basketball game3',3)
 ]
@@ -56,5 +56,5 @@ def profile(request):
 
 def blog(request,blog_id):
     # blog = blog_id
-    context = {'blogs':blogs}
+    context = {'blog':blog_id,'title':blogs[blog_id].title,'author':blogs[blog_id].author,'content':blogs[blog_id].content,}
     return render(request, 'blog/show.html', context)

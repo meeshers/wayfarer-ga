@@ -4,6 +4,9 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+from .models import Post, City, Profile
+from .forms import Post_Form
+
 # Create your views here.
 
 # Define the home view
@@ -50,6 +53,8 @@ blogs = [
 # --- User routes --- #
 
 def profile(request):
+    #profile = User.objects.get(id=profile_id)
+    #posts = Post.objects.filter(user=request.user)
     context = {'test':user, 'blogs': blogs}
     return render(request, 'registration/profile.html',context)
 
@@ -57,6 +62,12 @@ def blog(request,blog_id):
     context = {'blog':blog_id,'title':blogs[blog_id].title,'author':blogs[blog_id].author,'content':blogs[blog_id].content,}
     return render(request, 'blog/show.html', context)
 
-def profile_edit(request):
-    context = {'test': user}
+def profile_edit(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    if request.method == 'POST':
+      profile_form = Profile_Form(request.POST, instance=profile)
+      if profile_form.is_valid():
+          cat+form.save()
+          return redirect('profile')
+    context = {'test': user, 'profile_form': cat_form}
     return render(request, 'blog/edit.html', context)

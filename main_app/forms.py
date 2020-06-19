@@ -6,7 +6,7 @@ class Post_Form(ModelForm):
     model = Post
     fields = ['title','content']
 
-""" class Edit_Form(ModelForm):
+class Edit_Form(ModelForm):
   class Meta:
     model = Profile
-    fields = ['city'] """
+    fields = ['city']

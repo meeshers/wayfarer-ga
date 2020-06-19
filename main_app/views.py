@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from .models import Post, City, Profile
-from .forms import Post_Form
+from .forms import Edit_Form
 
 # Create your views here.
 
@@ -29,14 +29,7 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
-""" class User:
-  def __init__(self, name, city, register_date):
-    self.name = name
-    self.city = city
-    self.register_date = register_date
-
-user = User('Lolo', 'Tabby', '05-14-2020')
-
+""" 
 class Blog:
     def __init__(self,title,author,content, num):
         self.title = title
@@ -65,13 +58,12 @@ def blog(request,blog_id):
 
 @login_required
 def profile_edit(request, user_id):
-    user = User.objects.get(id=user_id)
     if request.method == 'POST':
-      profile_form = Profile_Form(request.POST, instance=profile)
+      profile_form = Edit_Form(request.POST, instance= request.user)
       if profile_form.is_valid():
           profile_form.save()
           return redirect('profile')
     else:
-      profile_form = Profile_Form(instance=profile)
-    context = {'test': profile, 'profile_form': profile_form}
+      profile_form = Edit_Form(instance=request.user)
+    context = {'profile_form': profile_form}
     return render(request, 'blog/edit.html', context)

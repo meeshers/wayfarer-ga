@@ -8,7 +8,7 @@ from .models import Post, City, Profile
 admin.site.register(Post)
 admin.site.register(City)
 
-# define inline admin for profile model
+""" # define inline admin for profile model
 class ProfileInLine(admin.StackedInline):
   model = Profile
   can_delete = False
@@ -19,5 +19,5 @@ class UserAdmin(BaseUserAdmin):
   inlines = (ProfileInLine,)
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
-#admin.site.register(Profile)
+admin.site.register(User, UserAdmin) """
+admin.site.register(Profile)

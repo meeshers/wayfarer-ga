@@ -2,19 +2,34 @@
 
 {% block content %}
 <h1>Profile Page</h1>
-<p>your name: {{test.name}}</p>
-<p>your city: {{test.city}}</p>
-<p>your register date: {{test.register_date}}</p>
+<p>Username: {{user.username}}</p>
+<p>City: 
+    {% if user.Profile.city == null %}
+        Please edit your city.
+    {% else %}
+        {{user.Profile.city}}
+    {% endif %}
+</p>
+<p>Date joined: {{user.date_joined}}</p>
 
 <form action="{% url 'edit' %}" method="GET">
     <button class="ui inverted button">Edit info</button>
 </form>
 
-<p>blogs</p>
-{% for blog in blogs%}
-<div>
-    <a href="{% url 'blog' blog.num %}">blog title: {{blog.title}}</a>
-    <p>blog content: {{blog.content}}</p>
-</div>
-{% endfor %}
+<form action="" method="post">
+    <button class="ui inverted button">Create post</button>
+</form>
+
+<h3>blogs</h3>
+<!-- create if statement to display if there are posts or not -->
+{% if posts.count == 0%}
+    <p>There are no posts to display</p>
+{% else %}
+    {% for post in posts%}
+    <div>
+     <a href="{% url 'blog' blog.num %}">blog title: {{post.title}}</a>
+    <p>blog content: {{post.content}}</p>
+    </div>
+    {% endfor %}
+{% endif %}
 {% endblock %}

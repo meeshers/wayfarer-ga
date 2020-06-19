@@ -13,6 +13,9 @@
     <script src="https://code.jquery.com/jquery-3.1.1.js"
         integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
     <script src="{% static 'scripts/app.js' %}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 
     {% block styles %}
     {% endblock %}
@@ -28,17 +31,62 @@
                 <ul class="right menu">
                     <li class="item"><a href="{% url 'home' %}">Home</a></li>
                     {% if user.is_authenticated %}
-                    <li class="item"><a href="{% url 'logout' %}">Logout</a></li>
-                    <li class="item"><a href="{% url 'profile' %}">Profile</a></li>
+                    <button class="item"><a href="{% url 'logout' %}">Logout</button>
+                    <button class="item"><a href="{% url 'profile' %}">Profile</button>
                     {% else %}
-                    <li class="item" id="login">Login</li>
-                    <li class="item"><a href="{% url 'signup' %}">Signup</a></li>
+                    <button class="item" id="login">Log in</button>
+                    <button class="item" id="signup">Signup</button>
                     {% endif %}
                 </ul>
             </div>
         </nav>
         <a href=""></a>
     </header>
+
+    <div id="login-form" class="ui modal login">
+        <div class="header">Log in</div>
+        <div class="content">
+            <form action="{% url 'userlogin'%}" method="POST">
+                {% csrf_token %}
+                {{loginform.as_p}}
+        </div>
+        <div class="actions">
+
+            <input class="btn" type="submit" value="Login">
+            <input type="hidden" name="next" value={{next}}>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-form" class="ui modal signup">
+        <div class="header">Sign Up</div>
+        <div class="content">
+            <form action="{% url 'signup'%}" method="POST">
+                {% csrf_token %}
+                {{signupform.as_p}}
+        </div>
+        <div class="actions">
+
+            <input class="btn" type="submit" value="Signup">
+            <input type="hidden" name="next" value={{next}}>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // this is a function that takes in the modal type so you can have multiple modals type = a class on the modal like login
+        const modal = type => {
+            $(`#${type}`)
+                .modal({
+                    blurring: true
+                })
+                .modal('show');
+        };
+        // this is the event listener to handle the on click of the login button 
+        $('#login').on('click', () => modal('login-form'));
+        $('#signup').on('click', () => modal('signup-form'));
+    </script>
+
     {% block content %}
 
     {% endblock%}
@@ -58,17 +106,5 @@
     </div>
 </body>
 
-</html>
 
-<script>
-    // this is a function that takes in the modal type so you can have multiple modals type = a class on the modal like login
-    const modal = type => {
-        $(`.ui.modal.${type}`)
-            .modal({
-                blurring: true
-            })
-            .modal('show');
-    };
-    // this is the event listener to handle the on click of the login button 
-    $('#login').on('click', () => modal('login'));
-</script>
+</html>

@@ -9,12 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/slideshow.css' %}">
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" defer></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.js"
-        integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+
     <script src="{% static 'scripts/app.js' %}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 
 
     {% block styles %}
@@ -43,38 +40,58 @@
         <a href=""></a>
     </header>
 
+    <!-- Login modal -->
     <div id="login-form" class="ui modal login">
         <div class="header">Log in</div>
         <div class="content">
+            {% if login_error_message %}
+            <p> {{login_error_message}}</p>
+            {% endif %}
             <form action="{% url 'userlogin'%}" method="POST">
                 {% csrf_token %}
-                {{loginform.as_p}}
+                <input type="text" name="username" placeholder="Enter user name" required>
+                <input type="password" name="password" placeholder="Enter password" required>
         </div>
         <div class="actions">
-
             <input class="btn" type="submit" value="Login">
             <input type="hidden" name="next" value={{next}}>
             </form>
         </div>
     </div>
 
+    <!-- sign up modal  -->
     <div id="signup-form" class="ui modal signup">
         <div class="header">Sign Up</div>
         <div class="content">
+            {% if error_message %}
+            <p> {{error_message}}</p>
+            {% endif %}
             <form action="{% url 'signup'%}" method="POST">
                 {% csrf_token %}
-                {{signupform.as_p}}
+                <p>Username: </p><input type="text" name='username' required><span>Required. 150 characters of
+                    fewer.
+                    Letter,digits and @/./+/-/_only.</span>
+                <p>Password</p><input type="password" name="password1" required>
+                <ul>
+                    <li>Your password can't be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters</li>
+                    <li>Your password can't be a commonly used password.</li>
+                    <li>Your password can't be entirely numeric</li>
+                </ul>
+                <p>Password confirmation: </p><input type="password" name="password2" required> <span>Enter the same
+                    password as before, for verification.</span>
+
         </div>
         <div class="actions">
-
             <input class="btn" type="submit" value="Signup">
             <input type="hidden" name="next" value={{next}}>
             </form>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script>
-        // this is a function that takes in the modal type so you can have multiple modals type = a class on the modal like login
         const modal = type => {
             $(`#${type}`)
                 .modal({
@@ -82,29 +99,24 @@
                 })
                 .modal('show');
         };
-        // this is the event listener to handle the on click of the login button 
+        /* Event Listener */
         $('#login').on('click', () => modal('login-form'));
         $('#signup').on('click', () => modal('signup-form'));
+
+        /* Sign up error message */
+        {% if error_message %}
+        $('#signup-form').modal('show')
+        {% endif %}
+
+        /* Sign up error message */
+        {% if login_error_message %}
+        $('#login-form').modal('show')
+        {% endif %}
     </script>
 
+    <!-- block content -->
     {% block content %}
 
     {% endblock%}
-    <div class="ui modal login" id="login-modal">
-        <div class="modal">
-            <h2>Log In</h2>
-            <form action="{% url 'login' %}" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <a class="login-signup">Don't have an account? Sign Up</a>
-                <input type="submit" value="Log In">
-                <input type="hidden" name="next" value={{next}}>
-            </form>
-            <span class="modal-close" id="login-close">+</span>
-        </div>
-        <div class="modal-underlay" id="login-underlay"></div>
-    </div>
-</body>
-
 
 </html>

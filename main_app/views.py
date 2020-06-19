@@ -30,7 +30,7 @@ def signup(request):
     else:
         form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
-    return render(request, 'registration/signup.html', context)
+    return render(request, 'home.html', context)
 
 
 def userlogin(request):
@@ -40,12 +40,12 @@ def userlogin(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
         else:
-            error_message = "Invalid login please try again"
+            login_error_message = "Invalid login please try again"
     else:
         form = UserCreationForm()
-    context = {'form': form, 'error_message': error_message}
+    context = {'form': form, 'login_error_message': login_error_message}
     return render(request, 'home.html', context)
 
 

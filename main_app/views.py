@@ -10,10 +10,16 @@ from .forms import Edit_Form
 # Create your views here.
 
 # Define the home view
+
+
 def home(request):
-    return render(request, 'home.html')
+    form = UserCreationForm()
+    context = {'form': form}
+    return render(request, 'home.html', context)
 
 # --- Auth route --- #
+
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -27,15 +33,33 @@ def signup(request):
     else:
         form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
-    return render(request, 'registration/signup.html', context)
+    return render(request, 'home.html', context)
+
+
+def userlogin(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('profile')
+        else:
+            login_error_message = "Invalid login please try again"
+    else:
+        form = UserCreationForm()
+    context = {'form': form, 'login_error_message': login_error_message}
+    return render(request, 'home.html', context)
+
 
 """ 
 class Blog:
-    def __init__(self,title,author,content, num):
+    def __init__(self, title, author, content, num):
         self.title = title
         self.author = author
         self.content = content
         self.num = num
+
 
 blogs = [
     Blog('night in LA', 'Leborn James', 'play basketball game1',1),

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{% static 'css/slideshow.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" defer></script>
     <script src="{% static 'scripts/app.js' %}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 
     {% block styles %}
     {% endblock %}
@@ -29,7 +32,7 @@
                     <li class="item"><a href="{% url 'logout' %}">Logout</a></li>
                     <li class="item"><a href="{% url 'profile' %}">Profile</a></li>
                     {% else %}
-                    <li class="item"><a href="{% url 'login' %}">Login</a></li>
+                    <button id="login">Log in</button>
                     <li class="item"><a href="{% url 'signup' %}">Signup</a></li>
                     {% endif %}
                 </ul>
@@ -37,9 +40,42 @@
         </nav>
         <a href=""></a>
     </header>
+
+    <div class="ui modal login">
+        <div class="header">Log in</div>
+        <div class="content">
+            <form action="{% url 'userlogin'%}" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="text" placeholder="Username" name="username">
+                <input type="password" placeholder="Password" name="password">
+        </div>
+        <div class="actions">
+
+            <input class="btn" type="submit" value="Login">
+            <input type="hidden" name="next" value={{next}}>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // this is a function that takes in the modal type so you can have multiple modals type = a class on the modal like login
+        const modal = type => {
+            $(`.ui.modal.${type}`)
+                .modal({
+                    blurring: true
+                })
+                .modal('show');
+        };
+        // this is the event listener to handle the on click of the login button 
+        $('#login').on('click', () => modal('login'));
+
+    </script>
+
     {% block content %}
 
     {% endblock%}
 </body>
+
 
 </html>

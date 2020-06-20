@@ -120,3 +120,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGOUT_REDIRECT_URL = '/'
+<<<<<<< HEAD
+AUTH_PROFILE_MODULE = 'main_app.Profile'
+=======
+>>>>>>> submaster

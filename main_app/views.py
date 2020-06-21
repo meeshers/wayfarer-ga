@@ -4,6 +4,9 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+from .models import Post, City, Profile
+from .forms import Edit_Form
+
 # Create your views here.
 
 # Define the home view
@@ -49,16 +52,7 @@ def userlogin(request):
     return render(request, 'home.html', context)
 
 
-class User:
-    def __init__(self, name, city, register_date):
-        self.name = name
-        self.city = city
-        self.register_date = register_date
-
-
-user = User('Lolo', 'Tabby', '05-14-2020')
-
-
+""" 
 class Blog:
     def __init__(self, title, author, content, num):
         self.title = title
@@ -68,25 +62,33 @@ class Blog:
 
 
 blogs = [
-    Blog('night in LA', 'Leborn James', 'play basketball game1', 1),
-    Blog('night in Seattle', 'Leborn James', 'play basketball game2', 2),
-    Blog('night in SF', 'Leborn James', 'play basketball game3', 3)
-]
+    Blog('night in LA', 'Leborn James', 'play basketball game1',1),
+    Blog('night in Seattle', 'Leborn James', 'play basketball game2',2),
+    Blog('night in SF', 'Leborn James', 'play basketball game3',3)
+] """
 
 # --- User routes --- #
-
-
+@login_required
 def profile(request):
-    context = {'test': user, 'blogs': blogs}
-    return render(request, 'registration/profile.html', context)
+    cities = City.objects.all()
+    posts = Post.objects.filter(author=request.user)
+    context = {'posts': posts, 'user':request.user}
+    return render(request, 'registration/profile.html',context)
 
-
-def blog(request, blog_id):
-    context = {'blog': blog_id, 'title': blogs[blog_id].title,
-               'author': blogs[blog_id].author, 'content': blogs[blog_id].content, }
+def blog(request,blog_id):
+    #context = {'blog':blog_id,'title':blogs[blog_id].title,'author':blogs[blog_id].author,'content':blogs[blog_id].content,}
+    post = Post.objects.get(id=blog_id)
+    context = {'post':post}
     return render(request, 'blog/show.html', context)
 
-
-def profile_edit(request):
-    context = {'test': user}
+@login_required
+def profile_edit(request, user_id):
+    if request.method == 'POST':
+      profile_form = Edit_Form(request.POST, instance= request.user)
+      if profile_form.is_valid():
+          profile_form.save()
+          return redirect('profile')
+    else:
+      profile_form = Edit_Form(instance=request.user)
+    context = {'profile_form': profile_form, 'cities': cities}
     return render(request, 'blog/edit.html', context)

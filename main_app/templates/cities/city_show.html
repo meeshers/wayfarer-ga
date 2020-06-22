@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{city.name}}</h1>
 {% for post in posts %}
-<a href="{%  %}">
+<a href="{% url 'city_post' city.id post.id %}">
     <p>{{post.title}}</p><span>----{{post.author}}-----{{post.date}}</span>
 </a>
 {% endfor %}

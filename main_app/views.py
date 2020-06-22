@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from .models import Post, City, Profile
-from .forms import Edit_Form, Post_Form, City_Form
+from .forms import Edit_Form, Post_Form, City_Form, Edit_Post_Form
 
 # Create your views here.
 
@@ -82,7 +82,7 @@ def profile_edit(request, user_id):
     context = {'post_form': post_form}
     return render(request, 'registration/profile.html', context)
  """
-
+# --- CITIES ROUTES --- #
 def cities(request):
     cities = City.objects.all()
     context = { 'cities':cities}
@@ -93,3 +93,20 @@ def city_show(request, city_id):
     posts = Post.objects.filter(city=city_id)
     context = {'city':city, 'posts':posts}
     return render(request, 'cities/city_show.html', context)
+
+def city_post_show(request, city_id, post_id):
+    post = Post.objects.get(id=post_id)
+    context={'post':post}
+    return render(request, 'cities/show.html',context)
+
+def edit_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+      edit_post_form = Edit_Post_Form(request.POST, instance= request.post_id)
+      if edit_post_form.is_valid():
+          edit_post_form.save()
+          return redirect('city_post_show')
+    else:
+      edit_post_form = Edit_Post_Form(instance=request.post_id)
+    context = {'edit_post_form': edit_post_form}
+    return render(request, 'cities/edit.html', context)

@@ -3,6 +3,13 @@
 {% block content %}
 <h1>Profile Page</h1>
 <p>Username: {{user.username}}</p>
+<p>Name: 
+  {% if user.profile.name == null %}
+    Please edit your name.
+  {% else %}
+   {{user.profile.name}}
+  {% endif %}
+</p>
 <p>City: 
       {% if user.profile.city == null %}
       Please edit your city.

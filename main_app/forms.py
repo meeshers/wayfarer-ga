@@ -10,7 +10,7 @@ class Post_Form(ModelForm):
 class Edit_Form(ModelForm):
   class Meta:
     model = Profile
-    fields = ['city']
+    fields = ['name','city']
 
 
 class LoginForm(forms.Form):

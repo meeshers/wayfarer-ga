@@ -3,6 +3,7 @@
 {% block content %}
 <h1>Profile Page</h1>
 <p>Username: {{user.username}}</p>
+
 <p>Name: 
   {% if user.profile.name == null %}
     Please edit your name.
@@ -36,4 +37,3 @@
 {% endfor %}
 {% endif %}
 
-{% endblock %}

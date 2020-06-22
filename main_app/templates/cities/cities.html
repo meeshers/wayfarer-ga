@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <h1>Cities</h1>
 {% for city in cities %}
 <div><a href="{%url 'city_show' city.id%}">{{city.name}}</a></div>

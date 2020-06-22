@@ -20,3 +20,8 @@ class City_Form(ModelForm):
     model = City
     fields = ['name']
 
+class Edit_Post_Form(ModelForm):
+  class Meta:
+    model = Post
+    fields=['title','content']
+

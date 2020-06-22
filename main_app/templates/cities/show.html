@@ -7,6 +7,10 @@
 
   <h3><b>Posted by:</b> {{post.author}}</h3>
   <p>{{post.content}}</p>
+
+  <form action="{% url 'edit_post' post.id %}" method="GET">
+    <button class="ui inverted button">Edit info</button>
+  </form>
   
 </div>
 {% endblock %}

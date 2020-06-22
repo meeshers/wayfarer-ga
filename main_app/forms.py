@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import Post, Profile
 
 class Post_Form(ModelForm):
@@ -13,4 +14,4 @@ class Edit_Form(ModelForm):
 
 
 class LoginForm(forms.Form):
-    login_form = forms.Charfield(label="Login Form", max_length=100)
+    login_form = forms.CharField(label="Login Form", max_length=100)

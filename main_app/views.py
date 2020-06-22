@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, City, Profile
 from .forms import Edit_Form, Post_Form, City_Form
 
-
 # Create your views here.
 
 # Define the home view
@@ -33,7 +32,7 @@ def signup(request):
     return render(request, 'home.html', context)
 
 def userlogin(request):
-    login_error_message = ''
+    error_message = ''
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -43,35 +42,18 @@ def userlogin(request):
         else:
             login_error_message = "Invalid login please try again"
     else:
-        context = {'form': form, 'login_error_message':login_error_message}
-    return render(request, 'registration/login.html', context)
-
-
-""" 
-class Blog:
-    def __init__(self, title, author, content, num):
-        self.title = title
-        self.author = author
-        self.content = content
-        self.num = num
-
-
-blogs = [
-    Blog('night in LA', 'Leborn James', 'play basketball game1',1),
-    Blog('night in Seattle', 'Leborn James', 'play basketball game2',2),
-    Blog('night in SF', 'Leborn James', 'play basketball game3',3)
-] """
+        form = UserCreationForm()
+    context = {'form': form, 'login_error_message': login_error_message}
+    return render(request, 'home.html', context)
 
 # --- User routes --- #
 @login_required
 def profile(request):
-    city_form = City_Form()
     posts = Post.objects.filter(author=request.user)
-    context = {'posts': posts, 'user':request.user, 'city_form':city_form, 'profile': request.user.profile}
+    context = {'posts': posts, 'user':request.user, 'profile': request.user.profile}
     return render(request, 'registration/profile.html',context)
 
 def blog(request,blog_id):
-    #context = {'blog':blog_id,'title':blogs[blog_id].title,'author':blogs[blog_id].author,'content':blogs[blog_id].content,}
     post = Post.objects.get(id=blog_id)
     context = {'post':post}
     return render(request, 'blog/show.html', context)
@@ -84,8 +66,8 @@ def profile_edit(request, user_id):
           profile_form.save()
           return redirect('profile')
     else:
-
       profile_form = Edit_Form(instance=request.user.profile)
+    context = {'profile_form': profile_form}
     return render(request, 'blog/edit.html', context)
 
 # --- PROFILE ROUTES --- #

@@ -86,7 +86,6 @@ def profile_edit(request, user_id):
     else:
 
       profile_form = Edit_Form(instance=request.user.profile)
-    context = {'profile_form': profile_form, , 'cities': cities}
     return render(request, 'blog/edit.html', context)
 
 # --- PROFILE ROUTES --- #

@@ -4,19 +4,19 @@
 <h1>Profile Page</h1>
 <p>Username: {{user.username}}</p>
 
-<p>Name: 
+<p>Name:
   {% if user.profile.name == null %}
-    Please edit your name.
+  Please edit your name.
   {% else %}
-   {{user.profile.name}}
+  {{user.profile.name}}
   {% endif %}
 </p>
-<p>City: 
-      {% if user.profile.city == null %}
-      Please edit your city.
-    {% else %}
-      {{user.profile.city}}
-    {% endif %}
+<p>City:
+  {% if user.profile.city == null %}
+  Please edit your city.
+  {% else %}
+  {{user.profile.city}}
+  {% endif %}
 </p>
 <p>Date joined: {{user.date_joined}}</p>
 
@@ -31,9 +31,9 @@
 {% else %}
 {% for post in posts%}
 <div>
-  <a href="{% url 'blog' blog.num %}">blog title: {{post.title}}</a>
+  <a href="{% url 'blog' post.id %}">blog title: {{post.title}}</a>
   <p>blog content: {{post.content}}</p>
 </div>
 {% endfor %}
 {% endif %}
-
+{% endblock %}

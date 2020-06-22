@@ -15,7 +15,7 @@ class Post(models.Model):
   author = models.ForeignKey(User, on_delete = models.CASCADE)
   title = models.CharField(max_length=100)
   content = models.TextField(max_length=250)
-
+  city = models.ForeignKey(City, on_delete = models.CASCADE, null=True)
   def __str__(self):
     return f'Title: {self.title} in {self.city}'
 

@@ -46,25 +46,25 @@
 
     <!-- Login modal -->
 
-    <form action="{% url 'login'%}" method="POST">
 
-        <div id="login-form" class="ui modal login">
-            <div class="header">Log in</div>
-            <div class="content">
+    <div id="login-form" class="ui modal login">
+        <div class="header">Log in</div>
+        <div class="content">
+            <form action="{% url 'login'%}" method="POST">
                 {% if login_error_message %}
                 <p> {{login_error_message}}</p>
                 {% endif %}
                 {% csrf_token %}
                 <input type="text" name="username" placeholder="Enter user name" required>
                 <input type="password" name="password" placeholder="Enter password" required>
-            </div>
-            <div class="actions">
-                <input class="btn" type="submit" value="Login">
-                <input type="hidden" name="next" value={{next}}>
-
-            </div>
         </div>
-    </form>
+        <div class="actions">
+            <input class="btn" type="submit" value="Login">
+            <input type="hidden" name="next" value={{next}}>
+            </form>
+        </div>
+    </div>
+
     <!-- sign up modal  -->
     <div id="signup-form" class="ui modal signup">
         <div class="header">Sign Up</div>

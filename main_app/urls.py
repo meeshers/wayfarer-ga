@@ -9,3 +9,4 @@ urlpatterns = [
     path('accounts/profile/<int:user_id>/edit/',views.profile_edit, name='edit'),
     path('accounts/profile/<int:blog_id>/', views.blog, name='blog'),
 ]
+

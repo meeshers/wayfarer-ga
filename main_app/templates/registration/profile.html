@@ -3,12 +3,20 @@
 {% block content %}
 <h1>Profile Page</h1>
 <p>Username: {{user.username}}</p>
-<p>City:
-  {% if user.Profile.city == null %}
-  Please edit your city.
+
+<p>Name: 
+  {% if user.profile.name == null %}
+    Please edit your name.
   {% else %}
-  {{user.Profile.city}}
+   {{user.profile.name}}
   {% endif %}
+</p>
+<p>City: 
+      {% if user.profile.city == null %}
+      Please edit your city.
+    {% else %}
+      {{user.profile.city}}
+    {% endif %}
 </p>
 <p>Date joined: {{user.date_joined}}</p>
 
@@ -16,10 +24,7 @@
   <button class="ui inverted button">Edit info</button>
 </form>
 
-<button id="create-post-button" class="ui inverted button">Create post</button>
-
-
-<h3>blogs</h3>
+<h3>Posts</h3>
 <!-- create if statement to display if there are posts or not -->
 {% if posts.count == 0%}
 <p>There are no posts to display</p>
@@ -32,23 +37,3 @@
 {% endfor %}
 {% endif %}
 
-<div id="create-post" class="ui modal create-post">
-  <div class="header">Create a new post</div>
-  <div class="content">
-    <form action="" method="POST">
-      {% csrf_token %}
-      {{ city_form.as_p }}
-      <h3>Title: </h3>
-      <input type="text" name="title" required>
-      <h3>What fun things you want to share?</h3>
-      <textarea name="content" rows="4" cols="50" required></textarea>
-      <input class="btn" type="submit" value="submit">
-    </form>
-  </div>
-</div>
-
-<script>
-  var selectEl = document.getElementById('id_name');
-  M.FormSelect.init(selectEl);
-</script>
-{% endblock %}

@@ -120,3 +120,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGOUT_REDIRECT_URL = '/'
+AUTH_PROFILE_MODULE = 'main_app.Profile'
+

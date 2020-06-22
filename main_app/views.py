@@ -7,19 +7,16 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, City, Profile
 from .forms import Edit_Form, Post_Form, City_Form
 
+
 # Create your views here.
 
 # Define the home view
-
-
 def home(request):
     form = UserCreationForm()
     context = {'form': form}
     return render(request, 'home.html', context)
 
 # --- Auth route --- #
-
-
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -34,7 +31,6 @@ def signup(request):
         form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'home.html', context)
-
 
 def userlogin(request):
     login_error_message = ''
@@ -71,7 +67,7 @@ blogs = [
 def profile(request):
     city_form = City_Form()
     posts = Post.objects.filter(author=request.user)
-    context = {'posts': posts, 'user':request.user, 'city_form':city_form,}
+    context = {'posts': posts, 'user':request.user, 'city_form':city_form, 'profile': request.user.profile}
     return render(request, 'registration/profile.html',context)
 
 def blog(request,blog_id):
@@ -83,11 +79,25 @@ def blog(request,blog_id):
 @login_required
 def profile_edit(request, user_id):
     if request.method == 'POST':
-      profile_form = Edit_Form(request.POST, instance= request.user)
+      profile_form = Edit_Form(request.POST, instance= request.user.profile)
       if profile_form.is_valid():
           profile_form.save()
           return redirect('profile')
     else:
-      profile_form = Edit_Form(instance=request.user)
-    context = {'profile_form': profile_form, 'cities': cities}
+
+      profile_form = Edit_Form(instance=request.user.profile)
+    context = {'profile_form': profile_form, , 'cities': cities}
     return render(request, 'blog/edit.html', context)
+
+# --- PROFILE ROUTES --- #
+""" def create_post(request, user_id):
+    if request.method == 'POST':
+        post_form = Post_Form(request.post, instance=request.user)
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('profile')
+        else:
+            post_form = Post_Form(instance = request.user)
+    context = {'post_form': post_form}
+    return render(request, 'registration/profile.html', context)
+ """

@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Show Page</h1>
-<p>blog title: {{title}}</p>
-<p>blog author: {{author}}</p>
-<p>blog content: {{content}}</p>
+<div class="show-post">
+  <h1>{{post.title}}</h1>
+  <hr>
 
+  <h3><b>Posted by:</b> {{post.author}}</h3>
+  <p>{{post.content}}</p>
+</div>
 {% endblock %}

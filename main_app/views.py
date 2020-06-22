@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from .models import Post, City, Profile
-from .forms import Edit_Form
+from .forms import Edit_Form, Post_Form, City_Form
 
 # Create your views here.
 
@@ -37,7 +37,7 @@ def signup(request):
 
 
 def userlogin(request):
-    error_message = ''
+    login_error_message = ''
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -47,9 +47,8 @@ def userlogin(request):
         else:
             login_error_message = "Invalid login please try again"
     else:
-        form = UserCreationForm()
-    context = {'form': form, 'login_error_message': login_error_message}
-    return render(request, 'home.html', context)
+        context = {'form': form, 'login_error_message':login_error_message}
+    return render(request, 'registration/login.html', context)
 
 
 """ 
@@ -70,8 +69,9 @@ blogs = [
 # --- User routes --- #
 @login_required
 def profile(request):
+    city_form = City_Form()
     posts = Post.objects.filter(author=request.user)
-    context = {'posts': posts, 'user':request.user}
+    context = {'posts': posts, 'user':request.user, 'city_form':city_form,}
     return render(request, 'registration/profile.html',context)
 
 def blog(request,blog_id):
@@ -89,5 +89,5 @@ def profile_edit(request, user_id):
           return redirect('profile')
     else:
       profile_form = Edit_Form(instance=request.user)
-    context = {'profile_form': profile_form}
+    context = {'profile_form': profile_form, 'cities': cities}
     return render(request, 'blog/edit.html', context)

@@ -13,6 +13,6 @@ body {
   color: black;
 }
 
-.menu{
-  color: black;
+.ui.modal>.header {
+  background: grey;
 }

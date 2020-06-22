@@ -4,21 +4,20 @@
 <h1>Profile Page</h1>
 <p>Username: {{user.username}}</p>
 <p>City:
-    {% if user.Profile.city == null %}
-      Please edit your city.
-    {% else %}
-      {{user.Profile.city}}
-    {% endif %}
+  {% if user.Profile.city == null %}
+  Please edit your city.
+  {% else %}
+  {{user.Profile.city}}
+  {% endif %}
 </p>
 <p>Date joined: {{user.date_joined}}</p>
 
 <form action="{% url 'edit' user.id %}" method="GET">
-    <button class="ui inverted button">Edit info</button>
+  <button class="ui inverted button">Edit info</button>
 </form>
 
-<form action="" method="post">
-    <button class="ui inverted button">Create post</button>
-</form>
+<button id="create-post-button" class="ui inverted button">Create post</button>
+
 
 <h3>blogs</h3>
 <!-- create if statement to display if there are posts or not -->
@@ -27,9 +26,29 @@
 {% else %}
 {% for post in posts%}
 <div>
-    <a href="{% url 'blog' blog.num %}">blog title: {{post.title}}</a>
-    <p>blog content: {{post.content}}</p>
+  <a href="{% url 'blog' blog.num %}">blog title: {{post.title}}</a>
+  <p>blog content: {{post.content}}</p>
 </div>
 {% endfor %}
 {% endif %}
+
+<div id="create-post" class="ui modal create-post">
+  <div class="header">Create a new post</div>
+  <div class="content">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ city_form.as_p }}
+      <h3>Title: </h3>
+      <input type="text" name="title" required>
+      <h3>What fun things you want to share?</h3>
+      <textarea name="content" rows="4" cols="50" required></textarea>
+      <input class="btn" type="submit" value="submit">
+    </form>
+  </div>
+</div>
+
+<script>
+  var selectEl = document.getElementById('id_name');
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}

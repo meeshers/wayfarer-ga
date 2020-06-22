@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Post, Profile
+from .models import Post, Profile, City
 
 class Post_Form(ModelForm):
   class Meta:
@@ -11,6 +11,7 @@ class Edit_Form(ModelForm):
     model = Profile
     fields = ['city']
 
-
-class LoginForm(forms.Form):
-    login_form = forms.Charfield(label="Login Form", max_length=100)
+class City_Form(ModelForm):
+  class Meta:
+    model = City
+    fields = ['name']

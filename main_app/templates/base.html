@@ -23,7 +23,11 @@
     <header>
         <nav>
             <div class="ui inverted segment menu">
+                {% if user.is_authenticated %}
+                <h1><a href="{% url 'cities' %}">Wayfarer</a></h1>
+                {% else %}
                 <h1><a href="{% url 'home' %}">Wayfarer</a></h1>
+                {% endif %}
                 <ul class="right menu">
                     <button class="item"><a href="{% url 'home' %}">Home</a></button>
                     {% if user.is_authenticated %}

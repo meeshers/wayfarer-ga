@@ -8,5 +8,7 @@ urlpatterns = [
     path('accounts/profile/', views.profile, name='profile'),
     path('accounts/profile/<int:user_id>/edit/',views.profile_edit, name='edit'),
     path('accounts/profile/<int:blog_id>/', views.blog, name='blog'),
+    path('cities/', views.cities, name='cities'),
+    path('cities/<int:city_id>', views.city_show, name='city_show'),
 ]
 

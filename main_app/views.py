@@ -82,3 +82,14 @@ def profile_edit(request, user_id):
     context = {'post_form': post_form}
     return render(request, 'registration/profile.html', context)
  """
+
+def cities(request):
+    cities = City.objects.all()
+    context = { 'cities':cities}
+    return render(request, 'cities/cities.html', context)
+
+def city_show(request, city_id):
+    city = City.objects.get(id=city_id)
+    posts = Post.objects.filter(city=city_id)
+    context = {'city':city, 'posts':posts}
+    return render(request, 'cities/city_show.html', context)

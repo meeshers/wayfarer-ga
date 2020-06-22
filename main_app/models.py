@@ -16,9 +16,13 @@ class Post(models.Model):
   title = models.CharField(max_length=100)
   content = models.TextField(max_length=250)
   city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
+  date = models.DateTimeField(auto_now=True)
 
   def __str__(self):
     return f'Title: {self.title} in {self.city}'
+  
+  class Meta:
+    ordering = ['-date','title']
 
 # extending User model to have city/date
 class Profile(models.Model):

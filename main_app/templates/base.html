@@ -46,57 +46,58 @@
     {% endblock%}
 
     <!-- Login modal -->
-    <section class="modal-section">
+
+    <form action="{% url 'login'%}" method="POST">
+
         <div id="login-form" class="ui modal login">
             <div class="header">Log in</div>
             <div class="content">
                 {% if login_error_message %}
                 <p> {{login_error_message}}</p>
                 {% endif %}
-                <form action="{% url 'userlogin'%}" method="POST">
-                    {% csrf_token %}
-                    <input type="text" name="username" placeholder="Enter user name" required>
-                    <input type="password" name="password" placeholder="Enter password" required>
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Enter user name" required>
+                <input type="password" name="password" placeholder="Enter password" required>
             </div>
             <div class="actions">
                 <input class="btn" type="submit" value="Login">
                 <input type="hidden" name="next" value={{next}}>
-                </form>
-            </div>
-        </div>
 
-        <!-- sign up modal  -->
-        <div id="signup-form" class="ui modal signup">
-            <div class="header">Sign Up</div>
-            <div class="content">
-                {% if error_message %}
-                <p> {{error_message}}</p>
-                {% endif %}
-                <form action="{% url 'signup'%}" method="POST">
-                    {% csrf_token %}
-                    <p>Username: <input type="text" name='username' required> </p>
-                    <ul>
-                        <li>150 characters of fewer. Letter,digits and @/./+/-/_only.</li>
-                    </ul>
-                    <p>Password: <input type="password" name="password1" required></p>
-                    <ul>
-                        <li>Your password can't be too similar to your other personal information.</li>
-                        <li>Your password must contain at least 8 characters</li>
-                        <li>Your password can't be a commonly used password.</li>
-                        <li>Your password can't be entirely numeric</li>
-                    </ul>
-                    <p>Password confirmation: <input type="password" name="password2" required> </p>
-                    <ul>
-                        <li>Enter the same password as before, for verification.</li>
-                    </ul>
-            </div>
-            <div class="actions">
-                <input class="btn" type="submit" value="Signup">
-                <input type="hidden" name="next" value={{next}}>
-                </form>
             </div>
         </div>
-    </section>
+    </form>
+    <!-- sign up modal  -->
+    <div id="signup-form" class="ui modal signup">
+        <div class="header">Sign Up</div>
+        <div class="content">
+            {% if error_message %}
+            <p> {{error_message}}</p>
+            {% endif %}
+            <form action="{% url 'signup'%}" method="POST">
+                {% csrf_token %}
+                <p>Username: <input type="text" name='username' required> </p>
+                <ul>
+                    <li>150 characters of fewer. Letter,digits and @/./+/-/_only.</li>
+                </ul>
+                <p>Password: <input type="password" name="password1" required></p>
+                <ul>
+                    <li>Your password can't be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters</li>
+                    <li>Your password can't be a commonly used password.</li>
+                    <li>Your password can't be entirely numeric</li>
+                </ul>
+                <p>Password confirmation: <input type="password" name="password2" required> </p>
+                <ul>
+                    <li>Enter the same password as before, for verification.</li>
+                </ul>
+        </div>
+        <div class="actions">
+            <input class="btn" type="submit" value="Signup">
+            <input type="hidden" name="next" value={{next}}>
+            </form>
+        </div>
+    </div>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
@@ -114,6 +115,7 @@
     /* Event Listener */
     $('#login').on('click', () => modal('login-form'));
     $('#signup').on('click', () => modal('signup-form'));
+    $('#create-post-button').on('click', () => modal('create-post'));
 
     /* Sign up error message */
     {% if error_message %}
@@ -124,6 +126,7 @@
     {% if login_error_message %}
     $('#login-form').modal('show')
     {% endif %}
+
 </script>
 
 </html>

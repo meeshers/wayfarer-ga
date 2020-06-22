@@ -16,9 +16,8 @@
   <button class="ui inverted button">Edit info</button>
 </form>
 
-<form action="" method="post">
-  <button class="ui inverted button">Create post</button>
-</form>
+<button id="create-post-button" class="ui inverted button">Create post</button>
+
 
 <h3>blogs</h3>
 <!-- create if statement to display if there are posts or not -->
@@ -36,18 +35,20 @@
 <div id="create-post" class="ui modal create-post">
   <div class="header">Create a new post</div>
   <div class="content">
-    <form action="{% url 'createpost'%}" method="POST">
+    <form action="" method="POST">
       {% csrf_token %}
-      <div class="ui simple dropdown item">
-        {% for city in cities%}
-        <p class="item">city</p>
-        {% endfor %}
-      </div>
+      {{ city_form.as_p }}
       <h3>Title: </h3>
       <input type="text" name="title" required>
-      <input type="textarea" name="content" placeholder="Start writing" required>
+      <h3>What fun things you want to share?</h3>
+      <textarea name="content" rows="4" cols="50" required></textarea>
       <input class="btn" type="submit" value="submit">
     </form>
   </div>
 </div>
+
+<script>
+  var selectEl = document.getElementById('id_name');
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}

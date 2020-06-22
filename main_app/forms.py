@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Post, Profile
+from .models import Post, Profile, City
 
 class Post_Form(ModelForm):
   class Meta:
@@ -11,3 +11,7 @@ class Edit_Form(ModelForm):
     model = Profile
     fields = ['city']
 
+class City_Form(ModelForm):
+  class Meta:
+    model = City
+    fields = ['name']

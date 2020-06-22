@@ -12,3 +12,7 @@ body {
 .content {
   color: black;
 }
+
+.ui.modal>.header {
+  background: grey;
+}

@@ -16,3 +16,58 @@ body {
 .ui.modal>.header {
   background: grey;
 }
+
+/* Profile page */
+.profile-page {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.profile-page b {
+  color: #592D3F;
+}
+.profile-page> .profile {
+  padding: 10px;
+  margin: 10px;
+}
+
+.profile-page label {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.profile-page>.post {
+  padding: 10px;
+  margin: 10px;
+}
+
+.post>.posts{
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #592D3F;
+  border-radius: 5px;
+  width: 350px;
+  text-align: center;
+}
+
+.post>.posts:hover{
+  border: 1px solid white;
+}
+
+/* SHOW PAGE */
+.show-post {
+  text-align: center; 
+}
+
+.show-post p {
+  font-size: 20px;
+}
+
+.show-post hr {
+  width: 800px;
+  border: 1px solid #1A195F;
+}

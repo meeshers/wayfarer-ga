@@ -6,4 +6,18 @@
     <p>{{post.title}}</p><span>----{{post.author}}-----{{post.date}}</span>
 </a>
 {% endfor %}
+<button id="create-post-button">Create post</button>
+<div id="create-post" class="ui modal create-post">
+    <div class="header">Create a new post</div>
+    <div class="content">
+        <form action="{% url 'city_show' city.id%}" method="POST">
+            {% csrf_token %}
+            <h3>Title: </h3>
+            <input type="text" name="title" required>
+            <h3>Content: </h3>
+            <textarea name="content" rows="4" cols="50" required></textarea>
+            <input class="btn" type="submit" value="submit">
+        </form>
+    </div>
+</div>
 {% endblock %}

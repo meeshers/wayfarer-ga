@@ -56,6 +56,11 @@ body {
 .profile-page b {
   color: #592D3F;
 }
+
+.profile-page >.post b {
+  color: #FDFDFD;
+}
+
 .profile-page> .profile {
   padding: 10px;
   margin: 10px;
@@ -98,7 +103,10 @@ form {
 
 /* SHOW PAGE */
 .show-post {
+  padding: 10px;
+  margin: 0 auto;
   text-align: center; 
+  width: 800px;
 }
 
 .show-post p {

@@ -1,20 +1,44 @@
+/* Site-wide styling */
 body {
   background-color: #05040A;
   color: #FDFDFD;
 }
 
+/* Nav header styling */
+.ui.inverted.segment.menu {
+  background: #1A195F;
+  padding: 0;
+  margin: 0;
+}
+
+.ui.inverted.segment.menu > .logo {
+  color: #FDFDFD;
+  font-size: 25px;
+  padding: 15px 0 0 10px
+}
+
+/* Modal styling */
+
+.ui.modal>.header {
+  background: grey;
+}
+
+/* Home page */
 .topic-container {
   display: flex;
-  margin: 5px;
-  padding: 5px;
+  margin: 10px;
+  padding: 10px;
+  justify-content: space-around;
+}
+
+.topic-container div {
+  margin: 10px;
+  padding: 10px;
+  width: 400px;
 }
 
 .content {
   color: black;
-}
-
-.ui.modal>.header {
-  background: grey;
 }
 
 /* Profile page */

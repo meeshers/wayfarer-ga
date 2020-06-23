@@ -11,12 +11,9 @@
     <link rel="stylesheet" href="{% static 'css/slideshow.css' %}">
     <script src="{% static 'scripts/app.js' %}" defer></script>
 
-
-
-    {% block styles %}
+    {% block title %}
     {% endblock %}
 
-    <title>Document</title>
 </head>
 
 <body>
@@ -24,12 +21,12 @@
         <nav>
             <div class="ui inverted segment menu">
                 {% if user.is_authenticated %}
-                <h1><a href="{% url 'cities' %}">Wayfarer</a></h1>
+                <a class="logo" href="{% url 'cities' %}"><b><i class="moon outline icon"></i>Wayfarer</b></a>
                 {% else %}
-                <h1><a href="{% url 'home' %}">Wayfarer</a></h1>
+                <a class="logo" href="{% url 'home' %}"><b><i class="moon outline icon"></i>Wayfarer</b></a>
                 {% endif %}
                 <ul class="right menu">
-                    <button class="item"><a href="{% url 'home' %}">Home</a></button>
+                    <button class="item ui inverted red basic button"><a href="{% url 'home' %}">Home</a></button>
                     {% if user.is_authenticated %}
                     <button class="item ui inverted red basic button"><a href="{% url 'logout' %}">Logout</button>
                     <button class="item ui inverted red basic button"><a href="{% url 'profile' %}">Profile</button>

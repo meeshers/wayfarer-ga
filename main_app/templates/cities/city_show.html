@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>{{city.name}}</h1>
+
+<button id="create-post-button"><b>+</b></button>
+
+<h2>Posts</h2>
 {% for post in posts %}
-<a href="{% url 'city_post' city.id post.id %}">
-    <p>{{post.title}}</p><span>----{{post.author}}-----{{post.date}}</span>
-</a>
+<div class="post-container">
+    <a href="{% url 'city_post' city.id post.id %}">
+        <p>{{post.title}}</p>
+        <p>{{post.content}}</p>
+    </a>
+</div>
 {% endfor %}
-<button id="create-post-button">Create post</button>
+
+
 <div id="create-post" class="ui modal create-post">
     <div class="header">Create a new post</div>
     <div class="content">

@@ -9,11 +9,14 @@
   <p>{{post.content}}</p>
 
   <form action="{% url 'edit_post' post_id=post.pk %}" method="GET">
-    <button class="ui inverted button">Edit info</button>
+    <button class="ui inverted button">Edit</button>
     <input type="hidden" name="next" value={{next}}>
   </form>
 
-  <button id="delete-post" class="ui inverted button">Delete Post</button>
+  <form action="{% url 'delete_post' post.id %}" method="POST">
+    {% csrf_token %}
+    <button class="ui inverted button">Delete</button>
+  </form>
 
 </div>
 

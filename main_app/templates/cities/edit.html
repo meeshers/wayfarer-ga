@@ -2,11 +2,18 @@
 
 {% block content %}
 
+<div class="edit-page">
 <h1>Edit Post</h1>
 <form action="{% url 'edit_post' post.pk %}" method="POST">
-  {% csrf_token %}
-  {{ edit_post_form.as_p }}
+  {% for field in edit_post_form %}
+    <p>
+      <label for="{{ field.name }}"> {{field.label}}: </label> 
+      <br>
+      {{field}}
+    </p>
+  {% endfor %}
   <button class="ui red button">Update Post</button>
 </form>
+</div>
 
 {% endblock%}

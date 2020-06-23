@@ -1,0 +1,139 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slideshow.css' %}">
+    <script src="{% static 'scripts/app.js' %}" defer></script>
+
+
+
+    {% block styles %}
+    {% endblock %}
+
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="ui inverted segment menu">
+                {% if user.is_authenticated %}
+                <h1><a href="{% url 'cities' %}">Wayfarer</a></h1>
+                {% else %}
+                <h1><a href="{% url 'home' %}">Wayfarer</a></h1>
+                {% endif %}
+                <ul class="right menu">
+                    <button class="item"><a href="{% url 'home' %}">Home</a></button>
+                    {% if user.is_authenticated %}
+                    <button class="item ui inverted red basic button"><a href="{% url 'logout' %}">Logout</button>
+                    <button class="item ui inverted red basic button"><a href="{% url 'profile' %}">Profile</button>
+                    {% else %}
+                    <button class="item ui inverted red basic button" id="login">Log In</button>
+                    <button class="item ui inverted red basic button" id="signup">Signup</button>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <a href=""></a>
+    </header>
+
+    <!-- block content -->
+    {% block content %}
+
+    {% endblock%}
+
+    <!-- Login modal -->
+
+
+    <div id="login-form" class="ui modal login">
+        <div class="header">Log in</div>
+        <div class="content">
+            <form action="{% url 'login'%}" method="POST">
+                {% if login_error_message %}
+                <p> {{login_error_message}}</p>
+                {% endif %}
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Enter user name" required>
+                <input type="password" name="password" placeholder="Enter password" required>
+        </div>
+        <div class="actions">
+            <input class="btn" type="submit" value="Login">
+            <input type="hidden" name="next" value={{next}}>
+            </form>
+        </div>
+    </div>
+
+    <!-- sign up modal  -->
+    <div id="signup-form" class="ui modal signup">
+        <div class="header">Sign Up</div>
+        <div class="content">
+            {% if error_message %}
+            <p> {{error_message}}</p>
+            {% endif %}
+            <form action="{% url 'signup'%}" method="POST">
+                {% csrf_token %}
+                <p>Username: <input type="text" name='username' required> </p>
+                <ul>
+                    <li>150 characters of fewer. Letter,digits and @/./+/-/_only.</li>
+                </ul>
+                <p>Password: <input type="password" name="password1" required></p>
+                <ul>
+                    <li>Your password can't be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters</li>
+                    <li>Your password can't be a commonly used password.</li>
+                    <li>Your password can't be entirely numeric</li>
+                </ul>
+                <p>Password confirmation: <input type="password" name="password2" required> </p>
+                <ul>
+                    <li>Enter the same password as before, for verification.</li>
+                </ul>
+        </div>
+        <div class="actions">
+            <input class="btn" type="submit" value="Signup">
+            <input type="hidden" name="next" value={{next}}>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    const modal = type => {
+        $(`#${type}`)
+            .modal({
+                blurring: true
+            })
+            .modal('show');
+    };
+    /* Event Listener */
+    $('#login').on('click', () => modal('login-form'));
+    $('#signup').on('click', () => modal('signup-form'));
+    $('#create-post-button').on('click', () => modal('create-post'));
+
+    $('#delete-post').on('click', () => modal('confirm-delete-post'));
+
+    /* Sign up error message */
+    {% if error_message %}
+    $('#signup-form').modal('show')
+    {% endif %}
+
+    /* Sign up error message */
+    {% if login_error_message %}
+    $('#login-form').modal('show')
+    {% endif %}
+
+</script>
+
+</html>

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-page">
+  <div class="profile">
+    <h1>Profile Page</h1>
+    <p><label for="username"><b>Username:</b></label> {{user.username}}</p>
+
+    <p><label for="name"><b>Name:</b></label>
+      {% if user.profile.name == null %}
+      Please edit your name.
+      {% else %}
+      {{user.profile.name}}
+      {% endif %}
+    </p>
+    <p><label for="city"><b>City:</b></label>
+      {% if user.profile.city == null %}
+      Please edit your city.
+      {% else %}
+      {{user.profile.city}}
+      {% endif %}
+    </p>
+    <p><label for="date"><b>Date joined:</b></label> {{user.date_joined}}</p>
+
+    <form action="{% url 'edit' user.id %}" method="GET">
+      <button class="ui inverted button">Edit info</button>
+    </form>
+  </div>
+
+  <div class="post">
+    <h2>Posts</h2>
+    <!-- create if statement to display if there are posts or not -->
+    {% if posts.count == 0%}
+    <p>There are no posts to display</p>
+    {% else %}
+    {% for post in posts%}
+    <div class="posts">
+      <a href="{% url 'blog' post.id %}"><b>{{post.title}}</b></a>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

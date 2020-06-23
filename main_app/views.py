@@ -90,8 +90,19 @@ def cities(request):
 
 def city_show(request, city_id):
     city = City.objects.get(id=city_id)
-    posts = Post.objects.filter(city=city_id)
-    context = {'city':city, 'posts':posts}
+    current_user = request.user
+    if request.method == "POST":
+        post_form = Post_Form(request.POST)
+        if post_form.is_valid():
+            new_post_form=post_form.save(commit=False)
+            new_post_form.city_id = city_id
+            new_post_form.author_id = current_user.id
+            new_post_form.save()
+            return redirect('city_show', city_id=city_id)
+    else:
+        posts = Post.objects.filter(city=city_id)
+    city_form = City_Form()
+    context = {'city':city, 'posts':posts, 'city_form':city_form}
     return render(request, 'cities/city_show.html', context)
 
 def city_post_show(request, city_id, post_id):
@@ -110,3 +121,9 @@ def edit_post(request, post_id):
       edit_post_form = Edit_Post_Form(instance=request.post_id)
     context = {'edit_post_form': edit_post_form}
     return render(request, 'cities/edit.html', context)
+
+def delete_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post_city= post.city.pk
+    post.delete()
+    return redirect('city_show',city_id=post_city)

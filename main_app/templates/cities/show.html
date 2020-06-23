@@ -11,6 +11,10 @@
   <form action="{% url 'edit_post' post.id %}" method="GET">
     <button class="ui inverted button">Edit info</button>
   </form>
-  
+
+  <form action="{% url 'delete_post' post.id %}" method="POST">
+    {% csrf_token %}
+    <button class="ui inverted button">delete info</button>
+  </form>
 </div>
 {% endblock %}

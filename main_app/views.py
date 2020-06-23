@@ -113,13 +113,15 @@ def city_post_show(request, city_id, post_id):
 def edit_post(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
-      edit_post_form = Edit_Post_Form(request.POST, instance= request.post_id)
+      edit_post_form = Edit_Post_Form(request.POST)
       if edit_post_form.is_valid():
-          edit_post_form.save()
-          return redirect('city_post_show')
+        post.content = request.POST['content']
+        post.title = request.POST['title']
+        post.save()
+        return redirect('city_post', city_id=post.city.id, post_id = post.id)
     else:
-      edit_post_form = Edit_Post_Form(instance=request.post_id)
-    context = {'edit_post_form': edit_post_form}
+      edit_post_form = Edit_Post_Form(instance=post)
+    context = {'edit_post_form': edit_post_form, 'post': post}
     return render(request, 'cities/edit.html', context)
 
 def delete_post(request, post_id):

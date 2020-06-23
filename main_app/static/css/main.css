@@ -1,23 +1,51 @@
+/* Site-wide styling */
 body {
   background-color: #05040A;
   color: #FDFDFD;
 }
 
+.ui.inverted.button {
+  width: 100px;
+}
+
+/* Nav header styling */
+.ui.inverted.segment.menu {
+  background: #1A195F;
+  padding: 0;
+  margin: 0;
+}
+
+.ui.inverted.segment.menu > .logo {
+  color: #FDFDFD;
+  font-size: 25px;
+  padding: 15px 0 10px 10px
+}
+
+/* Modal styling */
+
+.ui.modal>.header {
+  background: grey;
+}
+
+/* Home page */
 .topic-container {
   display: flex;
-  margin: 5px;
-  padding: 5px;
+  margin: 10px;
+  padding: 10px;
+  justify-content: space-around;
+}
+
+.topic-container div {
+  margin: 10px;
+  padding: 10px;
+  width: 400px;
 }
 
 .content {
   color: black;
 }
 
-.ui.modal>.header {
-  background: grey;
-}
-
-/* Profile page */
+/* Profile pages */
 .profile-page {
   display: flex;
   align-self: center;
@@ -28,6 +56,11 @@ body {
 .profile-page b {
   color: #592D3F;
 }
+
+.profile-page >.post b {
+  color: #FDFDFD;
+}
+
 .profile-page> .profile {
   padding: 10px;
   margin: 10px;
@@ -58,9 +91,22 @@ body {
   border: 1px solid white;
 }
 
+.edit-page {
+  text-align: center;
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+form {
+  text-align: center;
+}
+
 /* SHOW PAGE */
 .show-post {
+  padding: 10px;
+  margin: 0 auto;
   text-align: center; 
+  width: 800px;
 }
 
 .show-post p {
@@ -70,4 +116,28 @@ body {
 .show-post hr {
   width: 800px;
   border: 1px solid #1A195F;
+}
+
+/* Cities show page */
+.post-container {
+  border: 1px solid #592D3F;
+  border-radius: 5px;
+  width: 500px;
+  margin: 10px;
+  padding: 10px;
+  background: #FDFDFD;
+}
+
+.post-container a {
+  color: #05040A;
+}
+
+#create-post-button {
+  background: #C62F2C;
+  border-style: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #FDFDFD;
 }

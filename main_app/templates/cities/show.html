@@ -13,10 +13,8 @@
     <input type="hidden" name="next" value={{next}}>
   </form>
 
-  <form action="{% url 'delete_post' post.id %}" method="POST">
-    {% csrf_token %}
-    <button class="ui inverted button">Delete</button>
-  </form>
+  <button id="delete-post" class="item ui inverted button">Delete</button>
+
 
 </div>
 

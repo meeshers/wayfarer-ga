@@ -46,13 +46,14 @@ def userlogin(request):
     context = {'form': form, 'login_error_message': login_error_message}
     return render(request, 'home.html', context)
 
-# --- User routes --- #
+# --- PROFILE ROUTES --- #
 @login_required
 def profile(request):
     posts = Post.objects.filter(author=request.user)
     context = {'posts': posts, 'user':request.user, 'profile': request.user.profile}
     return render(request, 'registration/profile.html',context)
 
+@login_required
 def blog(request,blog_id):
     post = Post.objects.get(id=blog_id)
     context = {'post':post}
@@ -70,26 +71,19 @@ def profile_edit(request, user_id):
     context = {'profile_form': profile_form}
     return render(request, 'blog/edit.html', context)
 
-# --- PROFILE ROUTES --- #
-""" def create_post(request, user_id):
-    if request.method == 'POST':
-        post_form = Post_Form(request.post, instance=request.user)
-        if post_form.is_valid():
-            post_form.save()
-            return redirect('profile')
-        else:
-            post_form = Post_Form(instance = request.user)
-    context = {'post_form': post_form}
-    return render(request, 'registration/profile.html', context)
- """
 # --- CITIES ROUTES --- #
+@login_required
 def cities(request):
     cities = City.objects.all()
-    context = { 'cities':cities}
+    city = City.objects.get(id=1)
+    posts = Post.objects.filter(city=1)
+    context = { 'cities':cities, 'city':city,'posts':posts}
     return render(request, 'cities/cities.html', context)
 
+@login_required
 def city_show(request, city_id):
     city = City.objects.get(id=city_id)
+    cities = City.objects.all()
     current_user = request.user
     if request.method == "POST":
         post_form = Post_Form(request.POST)
@@ -102,14 +96,16 @@ def city_show(request, city_id):
     else:
         posts = Post.objects.filter(city=city_id)
     city_form = City_Form()
-    context = {'city':city, 'posts':posts, 'city_form':city_form}
+    context = {'city':city, 'posts':posts, 'city_form':city_form, 'cities':cities}
     return render(request, 'cities/city_show.html', context)
 
+@login_required
 def city_post_show(request, city_id, post_id):
     post = Post.objects.get(id=post_id)
     context={'post':post}
     return render(request, 'cities/show.html',context)
 
+@login_required
 def edit_post(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
@@ -124,6 +120,7 @@ def edit_post(request, post_id):
     context = {'edit_post_form': edit_post_form, 'post': post}
     return render(request, 'cities/edit.html', context)
 
+@login_required
 def delete_post(request, post_id):
     post = Post.objects.get(id=post_id)
     post_city= post.city.pk

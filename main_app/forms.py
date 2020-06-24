@@ -12,9 +12,6 @@ class Edit_Form(ModelForm):
     model = Profile
     fields = ['name','city']
 
-class LoginForm(forms.Form):
-    login_form = forms.CharField(label="Login Form", max_length=100)
-
 class City_Form(ModelForm):
   class Meta:
     model = City

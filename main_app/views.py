@@ -83,6 +83,7 @@ def cities(request):
 @login_required
 def city_show(request, city_id):
     city = City.objects.get(id=city_id)
+    cities = City.objects.all()
     current_user = request.user
     if request.method == "POST":
         post_form = Post_Form(request.POST)
@@ -95,7 +96,7 @@ def city_show(request, city_id):
     else:
         posts = Post.objects.filter(city=city_id)
     city_form = City_Form()
-    context = {'city':city, 'posts':posts, 'city_form':city_form}
+    context = {'city':city, 'posts':posts, 'city_form':city_form, 'cities':cities}
     return render(request, 'cities/city_show.html', context)
 
 @login_required

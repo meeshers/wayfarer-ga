@@ -8,12 +8,13 @@
   <h3><b>Posted by:</b> {{post.author}}</h3>
   <p>{{post.content}}</p>
 
-  <form action="{% url 'edit_post' post_id=post.pk %}" method="GET">
-    <button class="ui inverted button">Edit info</button>
-    <input type="hidden" name="next" value={{next}}>
+  <form action="{% url 'edit_post' post_id=post.pk %}" method="GET"></form>
+  <button class="ui inverted button">Edit</button>
+  <input type="hidden" name="next" value={{next}}>
   </form>
 
-  <button id="delete-post" class="ui inverted button">Delete Post</button>
+  <button id="delete-post" class="item ui inverted button">Delete</button>
+
 
 </div>
 

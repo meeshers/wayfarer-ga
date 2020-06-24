@@ -36,18 +36,18 @@
         <div class="ui segment">
             <div class="ui items">
                 {% for post in posts %}
-                <a href="{% url 'city_post' city.id post.id %}">
-                    <div class="item">
-                        <div class="ui small image">
-                            <img
-                                src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/0091f1c3-56bf-4795-86d9-da95f415001d/db4rajv-8a0a078a-2e0c-4a33-b120-c420b7b054e1.png/v1/fill/w_256,h_256,q_80,strp/city_at_night_by_dragoncorn_raziel_db4rajv-fullview.jpg">
-                        </div>
-                        <div class="middle aligned content">
+                <div class="item">
+                    <div class="ui small image">
+                        <img
+                            src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/0091f1c3-56bf-4795-86d9-da95f415001d/db4rajv-8a0a078a-2e0c-4a33-b120-c420b7b054e1.png/v1/fill/w_256,h_256,q_80,strp/city_at_night_by_dragoncorn_raziel_db4rajv-fullview.jpg">
+                    </div>
+                    <div class="middle aligned content">
+                        <a href="{% url 'city_post' city.id post.id %}">
                             <h3>{{post.title}}</h5>
                                 <h5>{{post.content}}</h5>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                </div>
                 {% endfor %}
 
             </div>
